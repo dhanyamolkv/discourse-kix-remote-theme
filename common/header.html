@@ -81,16 +81,14 @@
 
 (function(){
 
-var TopicListItemView = require('discourse/app/components').default;
+var TopicListItemView = require('discourse/components/topic-list-item').default;
 
 
-TopicListItemView.reopen({
-    showCategory: function(){
-        return !this.get('controller.hideCategory') &&
-                this.get('topic.creator') &&
-                this.get('topic.category.name') !== 'uncategorized';
+TopicListItemView.reopen.reopen({
+    isHomepage: function() {
+      return !this.parentView.searchService.contextType
     }.property()
-});
+  });
 
 })();
 
