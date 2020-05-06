@@ -11,3 +11,21 @@
 {{/if}}
 
 </script>
+<script>
+
+(function(){
+
+var TopicListItemView = require('discourse/components/topic-list-item').default;
+
+
+TopicListItemView.reopen({
+    showCategory: function(){
+        return !this.get('controller.hideCategory') &&
+                this.get('topic.creator') &&
+                this.get('topic.category.name') !== 'uncategorized';
+    }.property()
+});
+
+})();
+
+</script>
