@@ -13,11 +13,10 @@
   This causes the topic-post-badge to be considered the same word as "text"
   at the end of the link, preventing it from line wrapping onto its own line.
 --}}
-
-{{#if showPosters}}
-  {{raw "list/posters-column" posters=topic.featuredUsers}}
-{{/if}}
-<td class='main-link clearfix sample-calss' colspan="1">
+<td class='main-link clearfix' colspan="1">
+  <div class='poster-avatar'>
+		<a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">{{avatar topic.lastPosterUser imageSize="medium"}}</a>
+	</div>
   {{~raw-plugin-outlet name="topic-list-before-link"}}
   <span class='link-top-line'>
     {{~raw-plugin-outlet name="topic-list-before-status"}}
@@ -46,50 +45,18 @@
   {{#if expandPinned}}
     {{raw "list/topic-excerpt" topic=topic}}
   {{/if}}
-</td>
-
-
-
-{{raw "list/posts-count-column" topic=topic}}
-
-{{#if showLikes}}
-  <td class="num likes">
-    {{#if hasLikes}}
+  <div class="views-field blogs-actions items-actions">
+		<ul class="list-inline">
+			<li title="likes_count" class="likes"><span class="icon"></span><label>
       <a href='{{topic.summaryUrl}}'>
         {{number topic.like_count}} {{d-icon "heart"}}
       </a>
-    {{/if}}
-  </td>
-{{/if}}
-
-{{#if showOpLikes}}
-  <td class="num likes">
-    {{#if hasOpLikes}}
-      <a href='{{topic.summaryUrl}}'>
-        {{number topic.op_like_count}} {{d-icon "heart"}}
-      </a>
-    {{/if}}
-  </td>
-{{/if}}
-
-<td class="num views {{topic.viewsHeat}}">{{number topic.views numberKey="views_long"}}</td>
+    </label></li> 
+			<li title="Views" class="view-count"><span class="icon"></span><label>Views : {{number topic.views numberKey="views_long"}}</label></li> 
+			<li title="Shares" class="share-count"><span class="icon"></span><label>Replies : {{number topic.replyCount noTitle="true" ariaLabel=view.title}}</label></li>
+		</ul>
+	</div>
+</td>
 
 {{raw "list/activity-column" topic=topic class="num" tagName="td"}}
-
-</script>
-<script>
-
-(function(){
-
-var TopicListItemView = require('discourse/components/topic-list-item').default;
-
-
-TopicListItemView.reopen.reopen({
-    isHomepage: function() {
-      return !this.parentView.searchService.contextType
-    }.property()
-  });
-
-})();
-
 </script>
