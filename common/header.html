@@ -1,3 +1,6 @@
+<script type="text/x-handlebars" data-template-name="/connectors/topic-above-post-stream/foobar">
+  <div style="height: 25px; width: 25px;background: red"></div>
+</script>
 <script type='text/x-handlebars' data-template-name='list/topic-list-item.raw'>
 {{#if bulkSelectEnabled}}
   <td class="bulk-select">
@@ -17,6 +20,7 @@
 		<a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">{{avatar topic.lastPosterUser imageSize="medium"}}</a>
 	</div>
   {{~raw-plugin-outlet name="topic-list-before-link"}}
+  <div class="right-section">
   <span class='link-top-line'>
     {{~raw-plugin-outlet name="topic-list-before-status"}}
     {{~raw "topic-status" topic=topic}}
@@ -39,11 +43,12 @@
       {{/unless}}
     {{/unless}}
     {{discourse-tags topic mode="list" tagsForUser=tagsForUser}}
-    {{raw "list/action-list" topic=topic postNumbers=topic.liked_post_numbers className="likes" icon="heart"}}
+    
   </div>
   {{#if expandPinned}}
     {{raw "list/topic-excerpt" topic=topic}}
   {{/if}}
+ 
   <div class="views-field blogs-actions items-actions">
 		<ul class="list-inline">
 			<li title="likes_count" class="likes"><span class="icon"></span><label>
@@ -52,12 +57,14 @@
       </a>
     </label></li> 
 			<li title="Views" class="view-count"><span class="icon"></span><label>Views : {{number topic.views numberKey="views_long"}}</label></li> 
-			<li title="Shares" class="share-count"><span class="icon"></span><label>Replies : {{number topic.replyCount noTitle="true" ariaLabel=view.title}}</label></li>
+			<li title="Shares" class="reply-count"><span class="icon"></span><label>Replies : {{number topic.replyCount noTitle="true" ariaLabel=view.title}}</label></li>
+		
 		</ul>
 	</div>
+ </div>
 </td>
 
-{{raw "list/activity-column" topic=topic class="num" tagName="td"}}
+
 </script>
 <script type='text/x-handlebars' data-template-name='topic-list-header.raw'>
   {{#if bulkSelectEnabled}}
@@ -75,5 +82,14 @@
   {{#if showOpLikes}}
      {{raw "topic-list-header-column" sortable='true' order='op_likes' number='true' forceName=(theme-i18n 'likes')}}
   {{/if}}
-  {{raw "topic-list-header-column" sortable='true' order='activity' forceName=(theme-i18n 'activity')}}
+  
 </script>
+<div id="top-navbar" class="container">
+<span id="top-navbar-links" display="none">
+  <a href="http://discourse-dev.assyst-uc.com/" class="dow-menu" id="home"><span id="home-text">Home</span>
+  <i class="fa fa-home" aria-hidden="true"></i></a> 
+  <a href="http://discourse-dev.assyst-uc.com/latest" class="dow-menu" id="library">Latest</a>
+  <a href="http://discourse-dev.assyst-uc.com/top" class="dow-menu" id="library">Top</a>
+  <a href="http://discourse-dev.assyst-uc.com/categories" class="dow-menu" id="store">Categories</a>
+</span>
+</div>
